@@ -1,81 +1,95 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
-import { Button, Card, FieldError, Form, Input, Label, TextField } from "@heroui/react";
-import { GrGoogle } from "react-icons/gr";
-import Link from "next/link";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+import Link from "next/link";
+import { GrGoogle } from "react-icons/gr";
 
 export default function SignUpPage() {
   const router = useRouter();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const name = e.target.name.value;
-    const image = e.target.image.value;
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+    setError("");
+    setLoading(true);
 
-    const { data, error } = await authClient.signUp.email({
-      name, email, password, image,
+    const { error } = await authClient.signUp.email({
+      name: e.target.name.value,
+      email: e.target.email.value,
+      password: e.target.password.value,
+      image: e.target.image.value,
     });
 
+    setLoading(false);
+
     if (error) {
-      toast.error(error.message || "Registration failed. Try again.");
+      setError(error.message || "Registration failed");
     } else {
-      toast.success("Account created! Please sign in.");
       router.push("/signin");
     }
   };
 
-//   const handleGoogleSignIn = async () => {
-//     await authClient.signIn.social({ provider: 'google', callbackURL: "/" });
-//   };
+  const googleSignIn = async () => {
+    await authClient.signIn.social({ provider: "google", callbackURL: "/" });
+  };
 
   return (
-    <Card className="border mx-auto w-125 py-10 mt-5 flex flex-col gap-4">
-      <h1 className="text-center text-2xl font-bold">Register</h1>
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="w-full max-w-md border rounded-xl p-8 bg-white shadow-sm">
+        <h1 className="text-2xl font-bold text-center mb-6">Register</h1>
 
-      <Form className="flex w-96 mx-auto flex-col gap-4" onSubmit={onSubmit}>
-        <TextField isRequired name="name" type="text">
-          <Label>Name</Label>
-          <Input placeholder="Your full name" />
-          <FieldError />
-        </TextField>
+        <form onSubmit={onSubmit} className="flex flex-col gap-4">
+          <div>
+            <label className="text-sm font-medium">Name</label>
+            <input name="name" type="text" required
+              className="w-full border rounded-lg px-3 py-2 mt-1 outline-none focus:border-amber-500"
+              placeholder="Your name" />
+          </div>
 
-        <TextField isRequired name="image" type="url">
-          <Label>Photo URL</Label>
-          <Input placeholder="https://example.com/photo.jpg" />
-          <FieldError />
-        </TextField>
+          <div>
+            <label className="text-sm font-medium">Photo URL</label>
+            <input name="image" type="url"
+              className="w-full border rounded-lg px-3 py-2 mt-1 outline-none focus:border-amber-500"
+              placeholder="https://example.com/photo.jpg" />
+          </div>
 
-        <TextField isRequired name="email" type="email">
-          <Label>Email</Label>
-          <Input placeholder="john@example.com" />
-          <FieldError />
-        </TextField>
+          <div>
+            <label className="text-sm font-medium">Email</label>
+            <input name="email" type="email" required
+              className="w-full border rounded-lg px-3 py-2 mt-1 outline-none focus:border-amber-500"
+              placeholder="john@example.com" />
+          </div>
 
-        <TextField isRequired name="password" type="password" minLength={8}>
-          <Label>Password</Label>
-          <Input placeholder="Min 8 chars, 1 uppercase, 1 number" />
-          <FieldError />
-        </TextField>
+          <div>
+            <label className="text-sm font-medium">Password</label>
+            <input name="password" type="password" required minLength={8}
+              className="w-full border rounded-lg px-3 py-2 mt-1 outline-none focus:border-amber-500"
+              placeholder="Min 8 characters" />
+          </div>
 
-        <Button type="submit" className="w-full">Register</Button>
-      </Form>
+          {error && <p className="text-red-500 text-sm">{error}</p>}
 
-      <p className="text-center text-sm">
-        Already have an account?{" "}
-        <Link href="/signin" className="text-amber-600 underline">Sign In</Link>
-      </p>
+          <button type="submit" disabled={loading}
+            className="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 rounded-lg transition">
+            {loading ? "Registering..." : "Register"}
+          </button>
+        </form>
 
-      <div className="flex items-center gap-2 w-96 mx-auto">
-        <hr className="flex-1" /><span className="text-sm text-gray-400">Or</span><hr className="flex-1" />
+        <div className="flex items-center gap-2 my-4">
+          <hr className="flex-1" /><span className="text-sm text-gray-400">or</span><hr className="flex-1" />
+        </div>
+
+        <button onClick={googleSignIn}
+          className="w-full flex items-center justify-center gap-2 border rounded-lg py-2 hover:bg-gray-50 transition font-medium">
+          <GrGoogle /> Continue with Google
+        </button>
+
+        <p className="text-center text-sm mt-4">
+          Have an account? <Link href="/signin" className="text-amber-600 underline">Sign In</Link>
+        </p>
       </div>
-
-      {/* <Button onClick={handleGoogleSignIn} variant="outline" className="w-96 mx-auto">
-        <GrGoogle /> Continue With Google
-      </Button> */}
-    </Card>
+    </div>
   );
 }

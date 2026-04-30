@@ -1,69 +1,81 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
-import { Button, Card, FieldError, Form, Input, Label, TextField } from "@heroui/react";
-import { GrGoogle } from "react-icons/gr";
-import Link from "next/link";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { toast } from "sonner";
+import { GrGoogle } from "react-icons/gr";
 
 export default function SignInPage() {
   const router = useRouter();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+    setError("");
+    setLoading(true);
 
-    const { data, error } = await authClient.signIn.email({
-      email,
-      password,
-      callbackURL: "/",
+    const { error } = await authClient.signIn.email({
+      email: e.target.email.value,
+      password: e.target.password.value,
     });
 
+    setLoading(false);
+
     if (error) {
-      toast.error(error.message || "Invalid email or password");
+      setError(error.message || "Invalid email or password");
     } else {
-      toast.success("Signed in successfully!");
+      toast.success("Signed in!");
       router.push("/");
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    await authClient.signIn.social({ provider: 'google', callbackURL: "/" });
+  const googleSignIn = async () => {
+    await authClient.signIn.social({ provider: "google", callbackURL: "/" });
   };
 
   return (
-    <Card className="border mx-auto w-125 py-10 mt-5 flex flex-col gap-4">
-      <h1 className="text-center text-2xl font-bold">Sign In</h1>
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="w-full max-w-md border rounded-xl p-8 bg-white shadow-sm">
+        <h1 className="text-2xl font-bold text-center mb-6">Sign In</h1>
 
-      <Form className="flex w-96 mx-auto flex-col gap-4" onSubmit={onSubmit}>
-        <TextField isRequired name="email" type="email">
-          <Label>Email</Label>
-          <Input placeholder="john@example.com" />
-          <FieldError />
-        </TextField>
+        <form onSubmit={onSubmit} className="flex flex-col gap-4">
+          <div>
+            <label className="text-sm font-medium">Email</label>
+            <input name="email" type="email" required
+              className="w-full border rounded-lg px-3 py-2 mt-1 outline-none focus:border-amber-500"
+              placeholder="john@example.com" />
+          </div>
 
-        <TextField isRequired name="password" type="password" minLength={8}>
-          <Label>Password</Label>
-          <Input placeholder="Enter your password" />
-          <FieldError />
-        </TextField>
+          <div>
+            <label className="text-sm font-medium">Password</label>
+            <input name="password" type="password" required
+              className="w-full border rounded-lg px-3 py-2 mt-1 outline-none focus:border-amber-500"
+              placeholder="Your password" />
+          </div>
 
-        <Button type="submit" className="w-full">Sign In</Button>
-      </Form>
+          {error && <p className="text-red-500 text-sm">{error}</p>}
 
-      <p className="text-center text-sm">
-        Don't have an account?{" "}
-        <Link href="/signup" className="text-amber-600 underline">Register</Link>
-      </p>
+          <button type="submit" disabled={loading}
+            className="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 rounded-lg transition">
+            {loading ? "Signing in..." : "Sign In"}
+          </button>
+        </form>
 
-      <div className="flex items-center gap-2 w-96 mx-auto">
-        <hr className="flex-1" /><span className="text-sm text-gray-400">Or</span><hr className="flex-1" />
+        <div className="flex items-center gap-2 my-4">
+          <hr className="flex-1" /><span className="text-sm text-gray-400">or</span><hr className="flex-1" />
+        </div>
+
+        <button onClick={googleSignIn}
+          className="w-full flex items-center justify-center gap-2 border rounded-lg py-2 hover:bg-gray-50 transition font-medium">
+          <GrGoogle /> Continue with Google
+        </button>
+
+        <p className="text-center text-sm mt-4">
+          No account? <Link href="/signup" className="text-amber-600 underline">Register</Link>
+        </p>
       </div>
-
-      <Button onClick={handleGoogleSignIn} variant="outline" className="w-96 mx-auto">
-        <GrGoogle /> Sign In With Google
-      </Button>
-    </Card>
+    </div>
   );
 }
