@@ -1,14 +1,18 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Playfair_Display, Inter } from 'next/font/google';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+// হেডিং এর জন্য সেরিফ ফন্ট
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-playfair', // CSS ভ্যারিয়েবল হিসেবে ব্যবহারের জন্য
+  weight: ['700', '900'],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+// বডি টেক্সট এর জন্য সান-সেরিফ ফন্ট
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  weight: ['400', '500', '600'],
 });
 
 export const metadata = {
@@ -18,11 +22,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" data-theme="light">
+      <body className={`${inter.variable} ${playfair.variable} font-sans bg-[#F9F8F6]`}>
+        {children}
+      </body>
     </html>
   );
 }
