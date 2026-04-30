@@ -1,37 +1,39 @@
 "use client";
-import { authClient } from "@/lib/auth-client";
+
 import { UpdateUserModal } from "@/components/UpdateUserModal";
-import { Avatar, Card } from "@heroui/react";
+import { authClient } from "@/lib/auth-client";
+
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-const ProfilePage = () => {
+export default function ProfilePage() {
   const router = useRouter();
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
 
   useEffect(() => {
-    if (!isPending && !user) {
-      router.push("/signin");
-    }
+    if (!isPending && !user) router.push("/signin");
   }, [user, isPending]);
 
-  if (isPending) return <div className="flex justify-center mt-20"><span className="loading loading-spinner" /></div>;
+  if (isPending) return (
+    <div className="flex justify-center mt-20">
+      <span className="loading loading-spinner" />
+    </div>
+  );
   if (!user) return null;
 
   return (
-    <div>
-      <Card className="max-w-96 mx-auto flex flex-col items-center border mt-5 p-6 gap-3">
-        <Avatar className="h-20 w-20">
-          <Avatar.Image alt={user.name} src={user.image} referrerPolicy="no-referrer" />
-          <Avatar.Fallback>{user.name?.charAt(0)}</Avatar.Fallback>
-        </Avatar>
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="w-full max-w-sm border rounded-xl p-8 bg-white shadow-sm flex flex-col items-center gap-3">
+        <img
+          src={user.image || `https://ui-avatars.com/api/?name=${user.name}`}
+          alt={user.name}
+          className="w-20 h-20 rounded-full object-cover border"
+        />
         <h2 className="text-xl font-bold">{user.name}</h2>
-        <p className="text-muted">{user.email}</p>
+        <p className="text-gray-500 text-sm">{user.email}</p>
         <UpdateUserModal />
-      </Card>
+      </div>
     </div>
   );
-};
-
-export default ProfilePage;
+}

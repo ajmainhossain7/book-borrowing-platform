@@ -119,7 +119,8 @@ export default function Navbar() {
                 <div tabIndex={0} role="button" className="avatar placeholder cursor-pointer">
                   <div className="w-8 rounded-full ring-2 ring-[#1A1A1B] ring-offset-1 bg-neutral text-neutral-content">
                     {user.image ? (
-                      <img src={user.image} alt={user.name} />
+                      <img src={user?.image} alt={user.name} referrerPolicy="no-referrer" />
+                      
                     ) : (
                       <span className="text-xs font-bold">{user.name?.[0]?.toUpperCase()}</span>
                     )}

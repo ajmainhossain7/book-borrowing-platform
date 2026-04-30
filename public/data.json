@@ -6,6 +6,7 @@
     "description": "A timeless masterpiece that delves into the decadence and disillusionment of the Jazz Age, masking a pursuit of lost love.",
     "category": "Classic",
     "available_quantity": 15,
+    "rating": 4.5,
     "image_url": "https://i.ibb.co.com/khHN7Pk/9780143454212.jpg"
   },
   {
@@ -15,6 +16,7 @@
     "description": "A profound novel exploring themes of wealth, love, and the American Dream through a vivid portrayal of the East and West Egg.",
     "category": "Fiction",
     "available_quantity": 8,
+    "rating": 4.8,
     "image_url": "https://i.ibb.co.com/0cv102J/To-Kill-a-Mockingbird.webp"
   },
   {
@@ -24,6 +26,7 @@
     "description": "A dystopian exploration of societal excess and the human condition, depicting a haunting narrative that transcends its era.",
     "category": "Fiction",
     "available_quantity": 12,
+    "rating": 4.6,
     "image_url": "https://i.ibb.co.com/MprDyVt/51-BIA4rrae-L-AC-UF1000-1000-QL80.jpg"
   },
   {
@@ -33,6 +36,7 @@
     "description": "An enigmatic story exploring themes of identity and the struggles of young adulthood in a changing world.",
     "category": "Fiction",
     "available_quantity": 5,
+    "rating": 4.3,
     "image_url": "https://i.ibb.co.com/tYSWRfG/catcherrye-edited-1-800x.png"
   },
   {
@@ -42,6 +46,7 @@
     "description": "A satirical romance that remains a literary gem, showcasing the glittering yet elusive world of 19th-century society.",
     "category": "Classic",
     "available_quantity": 20,
+    "rating": 4.7,
     "image_url": "https://i.ibb.co.com/YdQDMpn/81me-ud-V63-L-AC-UF1000-1000-QL80.jpg"
   },
   {
@@ -51,6 +56,7 @@
     "description": "An epic adventure set in a fantasy world, weaving a compelling narrative of courage and discovery.",
     "category": "Fantasy",
     "available_quantity": 10,
+    "rating": 4.9,
     "image_url": "https://i.ibb.co.com/xS8YvxL/81m-CE-uclx-L-UF1000-1000-QL80.jpg"
   },
   {
@@ -60,6 +66,7 @@
     "description": "The story of a young wizard's journey into magic, friendship, and his fight against dark forces.",
     "category": "Fantasy",
     "available_quantity": 25,
+    "rating": 4.8,
     "image_url": "https://i.ibb.co.com/989qMRW/42844155.jpg"
   },
   {
@@ -69,6 +76,7 @@
     "description": "A philosophical adventure about following your dreams and finding your own personal legend.",
     "category": "Fiction",
     "available_quantity": 18,
+    "rating": 4.6,
     "image_url": "https://i.ibb.co.com/zS9jsdK/18144590.jpg"
   },
   {
@@ -78,6 +86,7 @@
     "description": "A gripping psychological suspense novel that keeps readers on the edge with its mysterious twists.",
     "category": "Mystery",
     "available_quantity": 7,
+    "rating": 4.2,
     "image_url": "https://i.ibb.co.com/P6hfCmJ/Whats-App-Image-2024-05-22-at-11-21-25-2e21ae46.jpg"
   }
 ]
