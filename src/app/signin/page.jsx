@@ -3,17 +3,15 @@ import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { toast } from "sonner";
+import toast, { Toaster } from "react-hot-toast";
 import { GrGoogle } from "react-icons/gr";
 
 export default function SignInPage() {
   const router = useRouter();
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    setError("");
     setLoading(true);
 
     const { error } = await authClient.signIn.email({
@@ -24,19 +22,51 @@ export default function SignInPage() {
     setLoading(false);
 
     if (error) {
-      setError(error.message || "Invalid email or password");
+      // যদি user exist না করে → register করতে বলো
+      if (
+        error.message?.toLowerCase().includes("user not found") ||
+        error.message?.toLowerCase().includes("invalid credentials") ||
+        error.status === 401
+      ) {
+        toast(
+          (t) => (
+            <div className="flex flex-col gap-2">
+              <p className="font-semibold">Account not found!</p>
+              <p className="text-sm text-gray-600">Please register first.</p>
+              <button
+                onClick={() => {
+                  toast.dismiss(t.id);
+                  router.push("/signup");
+                }}
+                className="bg-amber-500 text-white text-sm px-3 py-1 rounded-lg"
+              >
+                Go to Register →
+              </button>
+            </div>
+          ),
+          { duration: 5000 }
+        );
+      } else if (error.message?.toLowerCase().includes("password")) {
+        // password ভুল হলে
+        toast.error("Wrong password. Please try again.");
+      } else {
+        toast.error(error.message || "Something went wrong.");
+      }
     } else {
-      toast.success("Signed in!");
-      router.push("/");
+      toast.success("Welcome back!");
+      setTimeout(() => router.push("/"), 1000);
     }
   };
 
   const googleSignIn = async () => {
+    toast.loading("Redirecting to Google...");
     await authClient.signIn.social({ provider: "google", callbackURL: "/" });
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center bg-[#F9F8F6]">
+      <Toaster position="top-center" />
+
       <div className="w-full max-w-md border rounded-xl p-8 bg-white shadow-sm">
         <h1 className="text-2xl font-bold text-center mb-6">Sign In</h1>
 
@@ -55,8 +85,6 @@ export default function SignInPage() {
               placeholder="Your password" />
           </div>
 
-          {error && <p className="text-red-500 text-sm">{error}</p>}
-
           <button type="submit" disabled={loading}
             className="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 rounded-lg transition">
             {loading ? "Signing in..." : "Sign In"}
@@ -73,7 +101,8 @@ export default function SignInPage() {
         </button>
 
         <p className="text-center text-sm mt-4">
-          No account? <Link href="/signup" className="text-amber-600 underline">Register</Link>
+          No account?{" "}
+          <Link href="/signup" className="text-amber-600 underline">Register here</Link>
         </p>
       </div>
     </div>

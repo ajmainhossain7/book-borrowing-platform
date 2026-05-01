@@ -13,7 +13,7 @@ const NAV_LINKS = [
   { label: "Wishlist",   href: "/wishlist" },
   { label: "Blog",       href: "/blog" },
   { label: "About Us",   href: "/about" },
-   { label: "My Profile",   href: "/my-profile" },
+   { label: "My Profile",   href: "/profile" },
 ];
 
 export default function Navbar() {

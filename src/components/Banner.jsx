@@ -1,4 +1,5 @@
 import { Button } from '@heroui/react';
+import Link from 'next/link';
 import React from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 
@@ -16,7 +17,7 @@ const Banner = () => {
                 </h2>
 
                 {/* Styled Responsive Button with Inter Font */}
-                <button className='font-[family:var(--font-inter)] 
+                <Link href={"/all-books"}><button className='font-[family:var(--font-inter)] 
                                    text-[10px] sm:text-xs md:text-sm 
                                    uppercase tracking-[0.2em] font-bold 
                                    text-white bg-[#1A1A1B] 
@@ -25,9 +26,7 @@ const Banner = () => {
                                    hover:bg-[#121217] transition-all duration-300
                                    active:scale-95 shadow-sm'>
                     Browse Now 
-                    <FaArrowRight className="text-[10px] md:text-xs" />
-                </button>
-
+                    <FaArrowRight className="text-[10px] md:text-xs" /></button></Link>
             </div>
         </section>
     );
