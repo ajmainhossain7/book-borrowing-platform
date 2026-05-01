@@ -2,6 +2,13 @@
 const nextConfig = {
   /* config options here */
   reactCompiler: true,
+  images: {
+    remotePatterns: [
+      {
+        hostname: 'i.ibb.co.com'
+      }
+    ]
+  }
 };
 
 export default nextConfig;

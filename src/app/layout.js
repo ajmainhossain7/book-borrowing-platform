@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Playfair_Display, Inter } from 'next/font/google';
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
       <body className={`${inter.variable} ${playfair.variable} font-sans bg-[#F9F8F6]`}>
         <Navbar className="text-[#1A1A1B]" />
         {children}
+        <Footer></Footer>
       </body>
     </html>
   );

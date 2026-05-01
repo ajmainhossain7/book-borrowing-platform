@@ -26,13 +26,18 @@ const BookCard = ({ book }) => {
 
   return (
     <div className="group flex flex-col bg-white border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300">
-      
-      {/* Book Cover */}
+
+      {/* Book Cover
+          FIX: When using `fill`, next/image ignores `width` & `height` props and
+          throws a warning. Removed them. Added `sizes` so Next.js picks the right
+          srcset for the viewport width. The parent `relative + aspect-[3/4]`
+          already gives the image a concrete size — fill works correctly here. */}
       <div className="relative w-full aspect-[3/4] overflow-hidden bg-gray-100">
         <Image
           src={image_url}
           alt={title}
           fill
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
         {/* Category top-left */}

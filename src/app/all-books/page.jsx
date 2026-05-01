@@ -4,6 +4,7 @@ import { BiBook } from "react-icons/bi";
 import SearchBar from "@/hooks/SearchBar";
 import CategorySidebar from "@/hooks/CategorySidebar";
 import BookCard from "@/components/BookCard";
+
 // ─── Active filter pill (server-rendered link) ────────────────────────────────
 const FilterPill = ({ label, clearHref, muted = false }) => (
   <Link
@@ -18,63 +19,75 @@ const FilterPill = ({ label, clearHref, muted = false }) => (
   </Link>
 );
 
-// Page 
+// ─── Page ─────────────────────────────────────────────────────────────────────
 const AllBooksPage = async ({ searchParams }) => {
+  // Next.js 15: searchParams is a Promise — must be awaited
   const { category, search } = await searchParams;
 
-  // Fetch on the server — Next.js caches this automatically
-  const res = await fetch('https://book-borrowing-platform.vercel.app//data.json')
-  const books = await res.json();
+  let books = [];
+  try {
+    const res = await fetch("http://localhost:3000/data.json");
+    if (!res.ok) throw new Error(`Fetch failed: ${res.status}`);
+    books = await res.json();
+  } catch (err) {
+    console.error("Could not load books:", err);
+  }
 
   // Derive unique categories for sidebar
-  const categories = [...new Set(books.map((b) => b.category).filter(Boolean))].sort();
+  const categories = [
+    ...new Set(books.map((b) => b.category).filter(Boolean)),
+  ].sort();
 
   // Filter on the server
   let filtered = books;
   if (category) filtered = filtered.filter((b) => b.category === category);
-  if (search?.trim())
-    filtered = filtered.filter((b) =>
-      b.title.toLowerCase().includes(search.trim().toLowerCase())
-    );
+  if (search?.trim()) {
+    const q = search.trim().toLowerCase();
+    filtered = filtered.filter((b) => b.title.toLowerCase().includes(q));
+  }
 
   // Build clear-filter hrefs
-  const clearCategoryHref = search ? `?search=${search}` : "?";
-  const clearSearchHref = category ? `?category=${category}` : "?";
+  const clearCategoryHref = search
+    ? `?search=${encodeURIComponent(search)}`
+    : "?";
+  const clearSearchHref = category
+    ? `?category=${encodeURIComponent(category)}`
+    : "?";
 
   return (
     <div
       className="min-h-screen bg-[#f8f7f4]"
       style={{ fontFamily: "'Playfair Display', serif" }}
     >
-      {/* ── Top Bar */}
+      {/* ── Top Bar ── */}
       <div className="bg-white border-b border-gray-200 px-6 py-4">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center gap-4">
           <h1 className="text-2xl font-bold text-gray-900 whitespace-nowrap">
             All Books
           </h1>
-          {/* SearchBar is a client component — needs interactivity */}
           <SearchBar defaultValue={search ?? ""} />
         </div>
       </div>
 
       {/* ── Body ── */}
       <div className="max-w-7xl mx-auto px-6 py-8 flex gap-8">
-        {/* CategorySidebar is a client component — uses router.replace */}
         <CategorySidebar
           categories={categories}
           selectedCategory={category ?? null}
         />
 
-        {/* Grid — fully server-rendered */}
+        {/* Grid */}
         <main className="flex-1 min-w-0">
           {/* Result count + active filter pills */}
           <div className="flex items-center gap-3 mb-5 flex-wrap">
             <p className="text-xs text-gray-500 font-medium">
               {filtered.length} book{filtered.length !== 1 ? "s" : ""}
             </p>
+
             {category && (
               <FilterPill label={category} clearHref={clearCategoryHref} />
             )}
+
             {search && (
               <Link
                 href={clearSearchHref}

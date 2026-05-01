@@ -49,7 +49,10 @@ const CategorySidebar = ({ categories, selectedCategory }) => {
             Categories
           </h2>
         </div>
-        <ul className="menu p-2 gap-0.5">
+
+        {/* FIX: Replaced DaisyUI `menu` class (requires DaisyUI installed) with
+            plain `flex flex-col` — identical visual result, no dependency needed */}
+        <ul className="flex flex-col p-2 gap-0.5">
           <li>
             <button
               onClick={() => handleSelect(null)}
@@ -63,6 +66,7 @@ const CategorySidebar = ({ categories, selectedCategory }) => {
               All Books
             </button>
           </li>
+
           {categories.map((cat) => {
             const meta = CATEGORY_META[cat] ?? defaultMeta;
             const isActive = selectedCategory === cat;
