@@ -10,10 +10,7 @@ const SearchBar = ({ defaultValue = "" }) => {
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
 
-  // FIX: Use controlled input instead of `defaultValue` (uncontrolled).
-  // With uncontrolled input, clicking the X FilterPill in AllBooksPage navigates
-  // to a URL without `?search=`, but the input keeps showing the old text because
-  // React never re-mounts it. Controlled input + useEffect keeps them in sync.
+  // Controlled so the X pill in AllBooksPage also clears the input
   const [value, setValue] = useState(defaultValue);
 
   useEffect(() => {
@@ -38,7 +35,7 @@ const SearchBar = ({ defaultValue = "" }) => {
     <div className="relative w-full max-w-2xl mx-auto">
       <FiSearch
         className={`absolute left-4 top-1/2 -translate-y-1/2 text-lg pointer-events-none transition-colors ${
-          isPending ? "text-gray-300" : "text-gray-400"
+          isPending ? "text-[#E2E2E2]" : "text-[#8B8B8B]"
         }`}
       />
       <input
@@ -46,13 +43,13 @@ const SearchBar = ({ defaultValue = "" }) => {
         value={value}
         onChange={(e) => handleChange(e.target.value)}
         placeholder="Search books by title…"
-        className="w-full pl-11 pr-10 py-3 border-2 border-gray-200 focus:border-gray-900 outline-none text-sm text-gray-800 placeholder-gray-400 bg-white transition-colors rounded-sm"
+        className="w-full pl-11 pr-10 py-3 border-2 border-[#E2E2E2] focus:border-[#1A1A1B] outline-none text-sm text-[#1A1A1B] placeholder-[#8B8B8B] bg-white transition-colors rounded-sm"
         style={{ fontFamily: "'Playfair Display', serif" }}
       />
       {value && (
         <button
           onClick={() => handleChange("")}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700 transition-colors"
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8B8B8B] hover:text-[#1A1A1B] transition-colors"
         >
           <FiX />
         </button>

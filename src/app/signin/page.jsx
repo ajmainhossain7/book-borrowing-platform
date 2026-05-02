@@ -1,6 +1,6 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
@@ -9,6 +9,15 @@ import { GrGoogle } from "react-icons/gr";
 export default function SignInPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const { data: session, isPending } = authClient.useSession();
+
+  useEffect(() => {
+    if (!isPending && session?.user) {
+      router.push("/");
+    }
+  }, [session, isPending]);
+
+  if (isPending || session?.user) return null;
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +31,6 @@ export default function SignInPage() {
     setLoading(false);
 
     if (error) {
-      // যদি user exist না করে → register করতে বলো
       if (
         error.message?.toLowerCase().includes("user not found") ||
         error.message?.toLowerCase().includes("invalid credentials") ||
@@ -34,10 +42,7 @@ export default function SignInPage() {
               <p className="font-semibold">Account not found!</p>
               <p className="text-sm text-gray-600">Please register first.</p>
               <button
-                onClick={() => {
-                  toast.dismiss(t.id);
-                  router.push("/signup");
-                }}
+                onClick={() => { toast.dismiss(t.id); router.push("/signup"); }}
                 className="bg-amber-500 text-white text-sm px-3 py-1 rounded-lg"
               >
                 Go to Register →
@@ -47,7 +52,6 @@ export default function SignInPage() {
           { duration: 5000 }
         );
       } else if (error.message?.toLowerCase().includes("password")) {
-        // password ভুল হলে
         toast.error("Wrong password. Please try again.");
       } else {
         toast.error(error.message || "Something went wrong.");

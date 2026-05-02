@@ -1,6 +1,6 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
@@ -9,6 +9,15 @@ import { GrGoogle } from "react-icons/gr";
 export default function SignUpPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const { data: session, isPending } = authClient.useSession();
+
+  useEffect(() => {
+    if (!isPending && session?.user) {
+      router.push("/");
+    }
+  }, [session, isPending]);
+
+  if (isPending || session?.user) return null;
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +35,6 @@ export default function SignUpPage() {
     if (error) {
       toast.error(error.message || "Registration failed. Try again.");
     } else {
-      // ✅ auto session destroy করো
       await authClient.signOut();
       toast.success("Account created! Please sign in.");
       setTimeout(() => router.push("/signin"), 1500);
