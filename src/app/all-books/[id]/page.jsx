@@ -23,11 +23,10 @@ const Stars = ({ rating, size = "sm" }) => (
     {[1, 2, 3, 4, 5].map((s) => (
       <FiStar
         key={s}
-        className={`${size === "sm" ? "text-xs" : "text-sm"} ${
-          s <= Math.round(rating)
+        className={`${size === "sm" ? "text-xs" : "text-sm"} ${s <= Math.round(rating)
             ? "fill-amber-400 text-amber-400"
             : "fill-gray-200 text-gray-200"
-        }`}
+          }`}
       />
     ))}
   </div>
@@ -80,7 +79,7 @@ const BookDetailsPage = async ({ params }) => {
   const isLowStock = book.available_quantity > 0 && book.available_quantity <= 8;
 
   return (
-    <ProtectedRoute> 
+    <ProtectedRoute>
       <div
         className="min-h-screen bg-[#F9F8F6]"
         style={{ fontFamily: "'Playfair Display', serif" }}
@@ -127,20 +126,17 @@ const BookDetailsPage = async ({ params }) => {
                 </span>
               </div>
 
-              <div className={`w-56 sm:w-64 lg:w-full max-w-[260px] flex items-center gap-3 px-4 py-3 border ${
-                isOutOfStock
+              <div className={`w-56 sm:w-64 lg:w-full max-w-[260px] flex items-center gap-3 px-4 py-3 border ${isOutOfStock
                   ? "bg-red-50 border-red-200"
                   : isLowStock
-                  ? "bg-orange-50 border-orange-200"
-                  : "bg-emerald-50 border-emerald-200"
-              }`}>
-                <FiPackage className={`text-sm flex-shrink-0 ${
-                  isOutOfStock ? "text-red-400" : isLowStock ? "text-orange-400" : "text-emerald-500"
-                }`} />
+                    ? "bg-orange-50 border-orange-200"
+                    : "bg-emerald-50 border-emerald-200"
+                }`}>
+                <FiPackage className={`text-sm flex-shrink-0 ${isOutOfStock ? "text-red-400" : isLowStock ? "text-orange-400" : "text-emerald-500"
+                  }`} />
                 <div>
-                  <p className={`text-xs font-bold ${
-                    isOutOfStock ? "text-red-600" : isLowStock ? "text-orange-600" : "text-emerald-600"
-                  }`}>
+                  <p className={`text-xs font-bold ${isOutOfStock ? "text-red-600" : isLowStock ? "text-orange-600" : "text-emerald-600"
+                    }`}>
                     {isOutOfStock ? "Out of Stock" : isLowStock ? `Only ${book.available_quantity} left!` : "In Stock"}
                   </p>
                   {!isOutOfStock && (
@@ -194,9 +190,9 @@ const BookDetailsPage = async ({ params }) => {
               <div className="bg-white border border-[#E2E2E2] divide-y divide-[#E2E2E2] pt-2">
                 {[
                   { label: "Category", value: book.category },
-                  { label: "Author",   value: book.author },
+                  { label: "Author", value: book.author },
                   { label: "Available", value: `${book.available_quantity} copies` },
-                  { label: "Rating",   value: `${book.rating} / 5.0` },
+                  { label: "Rating", value: `${book.rating} / 5.0` },
                 ].map((item) => (
                   <div key={item.label} className="flex items-center justify-between px-4 py-3">
                     <span className="text-[11px] tracking-widest uppercase text-[#8B8B8B]">
@@ -238,11 +234,10 @@ const BookDetailsPage = async ({ params }) => {
                 <div className="flex flex-col gap-2.5">
                   <button
                     disabled={isOutOfStock}
-                    className={`w-full flex items-center justify-center gap-2 py-3 text-xs font-bold tracking-[0.12em] uppercase transition-all duration-200 ${
-                      isOutOfStock
+                    className={`w-full flex items-center justify-center gap-2 py-3 text-xs font-bold tracking-[0.12em] uppercase transition-all duration-200 ${isOutOfStock
                         ? "bg-[#E2E2E2] text-[#8B8B8B] cursor-not-allowed"
                         : "bg-[#1A1A1B] text-white hover:bg-[#121217] active:scale-[0.98]"
-                    }`}
+                      }`}
                   >
                     <FiShoppingCart className="text-sm" />
                     {isOutOfStock ? "Unavailable" : "Borrow Now"}
