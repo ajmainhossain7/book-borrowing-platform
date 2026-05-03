@@ -1,5 +1,6 @@
+import ScrollReveal from "@/hooks/ScrollReveal";
 import Link from "next/link";
-import Image from "next/image";
+
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const FEATURED_AUTHORS = [
@@ -18,7 +19,6 @@ const FEATURED_AUTHORS = [
       { id: 4, title: "Misir Ali", year: "1985", cover: "https://i.ibb.co.com/DPM1tsym/0010522647-L.jpg" },
     ],
     image: "https://i.ibb.co.com/mVydHmy7/Humayun-Ahmed-13-Nov2010.jpg",
-    quote: "আমি স্বপ্ন দেখি, তাই বাঁচি।",
     quoteEn: "I dream, therefore I live.",
     totalBooks: 200,
     awards: ["Bangla Academy Award", "Ekushey Padak"],
@@ -38,14 +38,13 @@ const FEATURED_AUTHORS = [
       { id: 4, title: "The Fall", year: "1956", cover: "https://covers.openlibrary.org/b/id/8231856-L.jpg" },
     ],
     image: "https://i.ibb.co.com/JRyWmLKn/Albert-Camus-gagnant-de-prix-Nobel-portrait-en-buste-pos-au-bureau-faisant-face-gauche-cigar.jpg",
-    quote: "In the depths of winter, I finally learned that within me there lay an invincible summer.",
     quoteEn: "In the depths of winter, I finally learned that within me there lay an invincible summer.",
     totalBooks: 14,
     awards: ["Nobel Prize in Literature 1957"],
   },
 ];
 
-// ─── Marquee strip of book titles ────────────────────────────────────────────
+// ─── Marquee strip ────────────────────────────────────────────────────────────
 const MarqueeStrip = ({ books }) => {
   const items = [...books, ...books, ...books, ...books];
   return (
@@ -64,16 +63,13 @@ const MarqueeStrip = ({ books }) => {
 
 // ─── Single Author Card ───────────────────────────────────────────────────────
 const AuthorCard = ({ author, reversed = false }) => (
-  <div
-    className={`grid grid-cols-1 lg:grid-cols-2 min-h-[600px] ${
-      reversed ? "lg:grid-flow-dense" : ""
-    }`}
-  >
+  <div className={`grid grid-cols-1 lg:grid-cols-2 min-h-[600px] ${reversed ? "lg:grid-flow-dense" : ""}`}>
+
     {/* Portrait side */}
-    <div
+    <ScrollReveal
+      animation={reversed ? "animate__fadeInRight" : "animate__fadeInLeft"}
       className={`relative overflow-hidden ${reversed ? "lg:col-start-2" : ""}`}
     >
-      {/* Grainy dark overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-[#0e0e0e] via-[#0e0e0e]/60 to-transparent z-10" />
       <div
         className="absolute inset-0 z-20 opacity-30"
@@ -91,144 +87,171 @@ const AuthorCard = ({ author, reversed = false }) => (
         style={{ minHeight: "500px" }}
       />
       {/* Birth–Death badge */}
-      <div className="absolute bottom-6 left-6 z-30">
+      <ScrollReveal
+        animation="animate__fadeInUp"
+        delay="0.3s"
+        className="absolute bottom-6 left-6 z-30"
+      >
         <span
           className="text-xs font-bold tracking-[0.25em] uppercase text-white/50 border border-white/20 px-3 py-1"
           style={{ fontFamily: "'Courier New', monospace" }}
         >
           {author.birth} — {author.death}
         </span>
-      </div>
-    </div>
+      </ScrollReveal>
+    </ScrollReveal>
 
     {/* Content side */}
-    <div
-      className={`bg-[#0e0e0e] flex flex-col justify-center px-10 lg:px-16 py-16 ${
-        reversed ? "lg:col-start-1 lg:row-start-1" : ""
-      }`}
+    <ScrollReveal
+      animation={reversed ? "animate__fadeInLeft" : "animate__fadeInRight"}
+      className={`bg-[#0e0e0e] flex flex-col justify-center px-10 lg:px-16 py-16 ${reversed ? "lg:col-start-1 lg:row-start-1" : ""}`}
     >
-      {/* Genre tag */}
-      <p
-        className="text-[10px] tracking-[0.3em] uppercase text-white/30 mb-4"
-        style={{ fontFamily: "'Courier New', monospace" }}
-      >
-        {author.genre}
-      </p>
+      {/* Genre */}
+      <ScrollReveal animation="animate__fadeIn" delay="0.2s">
+        <p
+          className="text-[10px] tracking-[0.3em] uppercase text-white/30 mb-4"
+          style={{ fontFamily: "'Courier New', monospace" }}
+        >
+          {author.genre}
+        </p>
+      </ScrollReveal>
 
       {/* Name */}
-      <h2
-        className="text-4xl lg:text-5xl font-black text-white leading-none mb-2"
-        style={{ fontFamily: "'Playfair Display', serif" }}
-      >
-        {author.name}
-      </h2>
-      <p
-        className="text-xs tracking-widest uppercase text-white/30 mb-8"
-        style={{ fontFamily: "'Courier New', monospace" }}
-      >
-        {author.nationality}
-      </p>
-
-      {/* Quote */}
-      <blockquote className="border-l-2 border-white/20 pl-5 mb-8">
-        <p
-          className="text-base italic text-white/50 leading-relaxed"
+      <ScrollReveal animation="animate__fadeInUp" delay="0.3s">
+        <h2
+          className="text-4xl lg:text-5xl font-black text-white leading-none mb-2"
           style={{ fontFamily: "'Playfair Display', serif" }}
         >
-          "{author.quoteEn}"
+          {author.name}
+        </h2>
+        <p
+          className="text-xs tracking-widest uppercase text-white/30 mb-8"
+          style={{ fontFamily: "'Courier New', monospace" }}
+        >
+          {author.nationality}
         </p>
-      </blockquote>
+      </ScrollReveal>
+
+      {/* Quote */}
+      <ScrollReveal animation="animate__fadeIn" delay="0.4s">
+        <blockquote className="border-l-2 border-white/20 pl-5 mb-8">
+          <p
+            className="text-base italic text-white/50 leading-relaxed"
+            style={{ fontFamily: "'Playfair Display', serif" }}
+          >
+            "{author.quoteEn}"
+          </p>
+        </blockquote>
+      </ScrollReveal>
 
       {/* Bio */}
-      <p
-        className="text-sm text-white/60 leading-7 mb-10"
-        style={{ fontFamily: "'Georgia', serif" }}
-      >
-        {author.bio}
-      </p>
+      <ScrollReveal animation="animate__fadeIn" delay="0.5s">
+        <p
+          className="text-sm text-white/60 leading-7 mb-10"
+          style={{ fontFamily: "'Georgia', serif" }}
+        >
+          {author.bio}
+        </p>
+      </ScrollReveal>
 
-      {/* Stats row */}
-      <div className="flex gap-8 mb-10 border-t border-white/10 pt-6">
-        <div>
-          <p className="text-2xl font-black text-white" style={{ fontFamily: "'Playfair Display', serif" }}>
-            {author.totalBooks}+
-          </p>
-          <p className="text-[10px] tracking-widest uppercase text-white/30">Books</p>
-        </div>
-        <div className="border-l border-white/10 pl-8">
-          <p className="text-2xl font-black text-white" style={{ fontFamily: "'Playfair Display', serif" }}>
-            {author.awards.length}
-          </p>
-          <p className="text-[10px] tracking-widest uppercase text-white/30">Awards</p>
-        </div>
-        <div className="border-l border-white/10 pl-8">
-          <p className="text-sm font-semibold text-white/70" style={{ fontFamily: "'Courier New', monospace" }}>
-            {author.awards[0]}
-          </p>
-          <p className="text-[10px] tracking-widest uppercase text-white/30">Top Award</p>
-        </div>
-      </div>
-
-      {/* Mini book shelf */}
-      <div className="flex gap-3 mb-10">
-        {author.books.map((book) => (
-          <Link href={`/books/${book.id}`} key={book.id} className="group flex-shrink-0">
-            <div className="w-14 h-20 bg-white/5 border border-white/10 overflow-hidden group-hover:border-white/40 transition-all duration-300 group-hover:scale-105">
-              <img
-                src={book.cover}
-                alt={book.title}
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-              />
-            </div>
-            <p className="text-[9px] text-white/25 mt-1 leading-tight truncate w-14 group-hover:text-white/50 transition-colors">
-              {book.year}
+      {/* Stats */}
+      <ScrollReveal animation="animate__fadeInUp" delay="0.5s">
+        <div className="flex gap-8 mb-10 border-t border-white/10 pt-6">
+          <div>
+            <p className="text-2xl font-black text-white" style={{ fontFamily: "'Playfair Display', serif" }}>
+              {author.totalBooks}+
             </p>
-          </Link>
+            <p className="text-[10px] tracking-widest uppercase text-white/30">Books</p>
+          </div>
+          <div className="border-l border-white/10 pl-8">
+            <p className="text-2xl font-black text-white" style={{ fontFamily: "'Playfair Display', serif" }}>
+              {author.awards.length}
+            </p>
+            <p className="text-[10px] tracking-widest uppercase text-white/30">Awards</p>
+          </div>
+          <div className="border-l border-white/10 pl-8">
+            <p className="text-sm font-semibold text-white/70" style={{ fontFamily: "'Courier New', monospace" }}>
+              {author.awards[0]}
+            </p>
+            <p className="text-[10px] tracking-widest uppercase text-white/30">Top Award</p>
+          </div>
+        </div>
+      </ScrollReveal>
+
+      {/* Book shelf */}
+      <div className="flex gap-3 mb-10">
+        {author.books.map((book, i) => (
+          <ScrollReveal key={book.id} animation="animate__zoomIn" delay={`${0.3 + i * 0.1}s`} className="flex-shrink-0">
+            <Link href={`/books/${book.id}`} className="group block">
+              <div className="w-14 h-20 bg-white/5 border border-white/10 overflow-hidden group-hover:border-white/40 transition-all duration-300 group-hover:scale-105">
+                <img
+                  src={book.cover}
+                  alt={book.title}
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                />
+              </div>
+              <p className="text-[9px] text-white/25 mt-1 leading-tight truncate w-14 group-hover:text-white/50 transition-colors">
+                {book.year}
+              </p>
+            </Link>
+          </ScrollReveal>
         ))}
       </div>
 
       {/* CTA */}
-      <Link
-        href={`/authors/${author.id}`}
-        className="self-start flex items-center gap-3 border border-white text-white text-xs font-bold tracking-[0.2em] uppercase px-6 py-3 hover:bg-white hover:text-black transition-all duration-300 group"
-        style={{ fontFamily: "'Courier New', monospace" }}
-      >
-        Explore Author
-        <span className="group-hover:translate-x-1.5 transition-transform duration-200">→</span>
-      </Link>
-    </div>
+      <ScrollReveal animation="animate__fadeInUp" delay="0.6s" className="self-start">
+        <Link
+          href={`/authors/${author.id}`}
+          className="flex items-center gap-3 border border-white text-white text-xs font-bold
+                     tracking-[0.2em] uppercase px-6 py-3
+                     hover:bg-white hover:text-black transition-all duration-300 group"
+          style={{ fontFamily: "'Courier New', monospace" }}
+        >
+          Explore Author
+          <span className="group-hover:translate-x-1.5 transition-transform duration-200">→</span>
+        </Link>
+      </ScrollReveal>
+    </ScrollReveal>
+
   </div>
 );
 
 // ─── Featured Authors Section ─────────────────────────────────────────────────
 const FeaturedAuthors = () => (
   <section className="bg-[#0e0e0e]">
+
     {/* Section header */}
     <div className="max-w-7xl mx-auto px-6 pt-16 pb-4 flex items-end justify-between">
       <div>
-        <p
-          className="text-[10px] tracking-[0.35em] uppercase text-white/30 mb-2"
+        <ScrollReveal animation="animate__fadeInDown">
+          <p
+            className="text-[10px] tracking-[0.35em] uppercase text-white/30 mb-2"
+            style={{ fontFamily: "'Courier New', monospace" }}
+          >
+            Get to know
+          </p>
+        </ScrollReveal>
+        <ScrollReveal animation="animate__fadeInDown" delay="0.1s">
+          <h2
+            className="text-3xl font-black text-white"
+            style={{ fontFamily: "'Playfair Display', serif" }}
+          >
+            Featured Authors
+          </h2>
+        </ScrollReveal>
+      </div>
+      <ScrollReveal animation="animate__fadeIn" delay="0.2s">
+        <Link
+          href="/authors"
+          className="text-xs tracking-widest uppercase text-white/40 hover:text-white transition-colors border-b border-white/20 hover:border-white pb-0.5"
           style={{ fontFamily: "'Courier New', monospace" }}
         >
-          Get to know
-        </p>
-        <h2
-          className="text-3xl font-black text-white"
-          style={{ fontFamily: "'Playfair Display', serif" }}
-        >
-          Featured Authors
-        </h2>
-      </div>
-      <Link
-        href="/authors"
-        className="text-xs tracking-widest uppercase text-white/40 hover:text-white transition-colors border-b border-white/20 hover:border-white pb-0.5"
-        style={{ fontFamily: "'Courier New', monospace" }}
-      >
-        See all
-      </Link>
+          See all
+        </Link>
+      </ScrollReveal>
     </div>
 
-    {/* Divider line */}
+    {/* Divider */}
     <div className="max-w-7xl mx-auto px-6">
       <div className="h-px bg-white/10" />
     </div>

@@ -17,6 +17,7 @@
     "@heroui/styles": "^3.0.3",
     "@heroui/system": "^2.4.28",
     "@heroui/theme": "^2.4.26",
+    "animate.css": "^4.1.1",
     "better-auth": "^1.6.9",
     "framer-motion": "^12.38.0",
     "mongodb": "^7.2.0",

@@ -3,6 +3,7 @@ import { Playfair_Display, Inter } from 'next/font/google';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Providers from "./Providers";
+import 'animate.css';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],

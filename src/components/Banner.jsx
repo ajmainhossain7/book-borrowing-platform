@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { FaArrowRight } from 'react-icons/fa';
 
-// ─── Floating book covers (matching the reference image style) ────────────────
 const BOOKS = [
   {
     src: "https://i.ibb.co.com/khHN7Pk/9780143454212.jpg",
@@ -11,6 +10,7 @@ const BOOKS = [
     translate: "-translate-y-4",
     z: "z-10",
     scale: "scale-90",
+    delay: "animate__delay-1s",
   },
   {
     src: "https://i.ibb.co.com/nsc8CxP0/7222246-L.jpg",
@@ -20,6 +20,7 @@ const BOOKS = [
     translate: "-translate-y-8",
     z: "z-20",
     scale: "scale-110",
+    delay: "animate__delay-2s",
   },
   {
     src: "https://i.ibb.co.com/989qMRW/42844155.jpg",
@@ -29,6 +30,7 @@ const BOOKS = [
     translate: "-translate-y-4",
     z: "z-10",
     scale: "scale-90",
+    delay: "animate__delay-3s",
   },
 ];
 
@@ -38,7 +40,7 @@ const Banner = () => {
       className="relative min-h-[70vh] md:min-h-[85vh] w-full flex items-center overflow-hidden"
       style={{ backgroundColor: "#F9F8F6" }}
     >
-      {/* ── Subtle grain texture overlay ── */}
+      {/* Subtle grain texture overlay */}
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
@@ -48,7 +50,7 @@ const Banner = () => {
         }}
       />
 
-      {/* ── Background image (blurred, very faint) ── */}
+      {/* Background image (blurred, very faint) */}
       <div
         className="absolute inset-0 opacity-[0.07] pointer-events-none"
         style={{
@@ -59,57 +61,59 @@ const Banner = () => {
         }}
       />
 
-      {/* ── Decorative large serif number bg ── */}
+      {/* Decorative large serif letter bg — fades in slowly */}
       <span
-        className="absolute -left-8 top-1/2 -translate-y-1/2 text-[320px] font-black text-gray-100 leading-none select-none pointer-events-none hidden lg:block"
+        className="absolute -left-8 top-1/2 -translate-y-1/2 text-[320px] font-black text-gray-100 leading-none select-none pointer-events-none hidden lg:block animate__animated animate__fadeIn animate__slower"
         style={{ fontFamily: "'Playfair Display', serif" }}
       >
         B
       </span>
 
-      {/* ── Main content ── */}
+      {/* Main content */}
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
 
           {/* Left: Text content */}
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left max-w-xl">
 
-            {/* Eyebrow tag */}
+            {/* Eyebrow tag — drops in first */}
             <p
-              className="text-[10px] tracking-[0.35em] uppercase text-gray-400 mb-6 border border-gray-200 px-4 py-2"
+              className="text-[10px] tracking-[0.35em] uppercase text-gray-400 mb-6 border border-gray-200 px-4 py-2
+                         animate__animated animate__fadeInDown"
               style={{ fontFamily: "'Courier New', monospace" }}
             >
               Curated for every reader
             </p>
 
-            {/* Main heading */}
+            {/* Main heading — slides in from left */}
             <h1
               className="font-[family:var(--font-playfair)]
                          text-5xl sm:text-6xl md:text-7xl lg:text-8xl
                          text-[#1A1A1B] tracking-tighter leading-[1.05]
-                         mb-6"
+                         mb-6
+                         animate__animated animate__fadeInLeft animate__delay-1s"
             >
               Find Your
               <br />
               <span className="relative inline-block">
                 Next Read
-                {/* Underline accent */}
                 <span className="absolute -bottom-2 left-0 w-full h-[3px] bg-[#1A1A1B]" />
               </span>
               <span className="text-rose-500">.</span>
             </h1>
 
-            {/* Subtext */}
+            {/* Subtext — fades in */}
             <p
-              className="text-sm text-gray-500 leading-7 mb-10 max-w-sm"
+              className="text-sm text-gray-500 leading-7 mb-10 max-w-sm
+                         animate__animated animate__fadeIn animate__delay-2s"
               style={{ fontFamily: "'Georgia', serif" }}
             >
               Our most popular and trending books, curated perfectly.
               Not sure what to read? Start reading now.
             </p>
 
-            {/* CTA buttons */}
-            <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+            {/* CTA buttons — rise up */}
+            <div className="flex flex-wrap gap-4 justify-center lg:justify-start animate__animated animate__fadeInUp animate__delay-2s">
               <Link href="/all-books">
                 <button
                   className="font-[family:var(--font-inter)]
@@ -142,14 +146,18 @@ const Banner = () => {
               </Link>
             </div>
 
-            {/* Stats */}
+            {/* Stats — fade in last with stagger via inline style */}
             <div className="flex gap-8 mt-12 pt-8 border-t border-gray-200 w-full justify-center lg:justify-start">
               {[
-                { n: "3.2K+", label: "Books" },
-                { n: "12K+", label: "Readers" },
-                { n: "4.8★", label: "Avg Rating" },
+                { n: "3.2K+", label: "Books", delay: "0.5s" },
+                { n: "12K+", label: "Readers", delay: "0.8s" },
+                { n: "4.8★", label: "Avg Rating", delay: "1.1s" },
               ].map((s) => (
-                <div key={s.label}>
+                <div
+                  key={s.label}
+                  className="animate__animated animate__fadeInUp"
+                  style={{ animationDelay: `calc(2.5s + ${s.delay})`, animationFillMode: "both" }}
+                >
                   <p
                     className="text-xl font-black text-[#1A1A1B]"
                     style={{ fontFamily: "'Playfair Display', serif" }}
@@ -176,9 +184,14 @@ const Banner = () => {
             {BOOKS.map((book, i) => (
               <div
                 key={i}
-                className={`relative group flex flex-col items-center ${book.z}`}
+                className={`relative group flex flex-col items-center ${book.z}
+                            animate__animated animate__zoomIn`}
+                style={{
+                  animationDelay: `${1.5 + i * 0.2}s`,
+                  animationFillMode: "both",
+                }}
               >
-                {/* Label above (dimmed, like reference) */}
+                {/* Label above */}
                 <div className="mb-3 text-center opacity-40 group-hover:opacity-80 transition-opacity duration-300">
                   <p
                     className="text-xs font-semibold text-gray-700 leading-tight"
@@ -220,23 +233,6 @@ const Banner = () => {
 
         </div>
       </div>
-
-      {/* <div className="absolute bottom-0 left-0 right-0 border-t border-gray-200 bg-white/60 backdrop-blur-sm py-3 overflow-hidden">
-        <div className="flex gap-10 animate-marquee whitespace-nowrap">
-          {[...Array(4)].flatMap(() =>
-            ["New Arrivals", "◆", "Bestsellers", "◆", "Special Offers", "◆", "Classic Collection", "◆", "Fantasy Picks", "◆"]
-          ).map((t, i) => (
-            <span
-              key={i}
-              className="text-[10px] tracking-[0.25em] uppercase text-gray-400"
-              style={{ fontFamily: "'Courier New', monospace" }}
-            >
-              {t}
-            </span>
-          ))}
-        </div>
-      </div> */}
-
     </section>
   );
 };
