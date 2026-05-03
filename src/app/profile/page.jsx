@@ -2,7 +2,7 @@
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { UpdateUserModal } from "@/components/UpdateUserModal";
+import { FiEdit } from "react-icons/fi";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -11,7 +11,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     if (!isPending && !user) {
-      router.push("/signin"); // ← logged out হলে signin এ যাবে
+      router.push("/signin");
     }
   }, [user, isPending]);
 
@@ -34,7 +34,14 @@ export default function ProfilePage() {
         <h2 className="mt-4 text-xl font-semibold text-gray-800">{user.name}</h2>
         <p className="text-gray-500 text-sm">{user.email}</p>
         <div className="w-full border-t my-5" />
-        <UpdateUserModal />
+
+        {/* ✅ Navigates to /profile/update instead of opening a modal */}
+        <button
+          onClick={() => router.push("/profile/update")}
+          className="flex items-center gap-2 border rounded-lg px-4 py-2 hover:bg-gray-50 transition font-medium text-sm"
+        >
+          <FiEdit /> Update Profile
+        </button>
       </div>
     </div>
   );
