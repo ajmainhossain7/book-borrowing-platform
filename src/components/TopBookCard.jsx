@@ -11,9 +11,9 @@ const CATEGORY_COLORS = {
   Fiction: "bg-blue-100 text-blue-800",
   Fantasy: "bg-purple-100 text-purple-800",
   Mystery: "bg-rose-100 text-rose-800",
-  Tech:    "bg-cyan-100 text-cyan-800",
+  Tech: "bg-cyan-100 text-cyan-800",
   Science: "bg-green-100 text-green-800",
-  Story:   "bg-orange-100 text-orange-800",
+  Story: "bg-orange-100 text-orange-800",
 };
 
 // ─── Rank badge ───────────────────────────────────────────────────────────────
@@ -49,11 +49,10 @@ const Stars = ({ rating }) => (
     {[1, 2, 3, 4, 5].map((s) => (
       <FiStar
         key={s}
-        className={`text-xs ${
-          s <= Math.round(rating)
+        className={`text-xs ${s <= Math.round(rating)
             ? "fill-amber-500 text-amber-500"
             : "fill-gray-200 text-gray-200"
-        }`}
+          }`}
       />
     ))}
   </div>
@@ -61,7 +60,7 @@ const Stars = ({ rating }) => (
 
 // ─── Card ─────────────────────────────────────────────────────────────────────
 const TopBookCard = ({ book, rank }) => {
-//   const categoryStyle = CATEGORY_COLORS[book.category] ?? "bg-gray-100 text-gray-700";
+  //   const categoryStyle = CATEGORY_COLORS[book.category] ?? "bg-gray-100 text-gray-700";
 
   return (
     <div className="group flex flex-col bg-white border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300">
@@ -101,13 +100,12 @@ const TopBookCard = ({ book, rank }) => {
           <span className="text-[11px] text-gray-400 ml-1">({book.rating})</span>
         </div>
 
-        <p className={`text-[11px] font-medium ${
-          book.available_quantity > 10
+        <p className={`text-[11px] font-medium ${book.available_quantity > 10
             ? "text-green-600"
             : book.available_quantity > 0
-            ? "text-orange-500"
-            : "text-red-500"
-        }`}>
+              ? "text-orange-500"
+              : "text-red-500"
+          }`}>
           {book.available_quantity > 0
             ? `${book.available_quantity} in stock`
             : "Out of stock"}

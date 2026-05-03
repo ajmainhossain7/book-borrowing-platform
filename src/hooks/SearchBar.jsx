@@ -34,9 +34,8 @@ const SearchBar = ({ defaultValue = "" }) => {
   return (
     <div className="relative w-full max-w-2xl mx-auto">
       <FiSearch
-        className={`absolute left-4 top-1/2 -translate-y-1/2 text-lg pointer-events-none transition-colors ${
-          isPending ? "text-[#E2E2E2]" : "text-[#8B8B8B]"
-        }`}
+        className={`absolute left-4 top-1/2 -translate-y-1/2 text-lg pointer-events-none transition-colors ${isPending ? "text-[#E2E2E2]" : "text-[#8B8B8B]"
+          }`}
       />
       <input
         type="text"

@@ -26,7 +26,7 @@ const MarqueeClient = ({ books }) => {
               <span className="mx-8 md:mx-12 text-[#2A2A2B] font-light text-2xl">
                 /
               </span>
-              
+
               {/* Offer Text - Clean Sans Style */}
               <span className="font-[family:var(--font-inter)] text-[10px] md:text-xs uppercase tracking-[0.2em] text-[#F9F8F6] opacity-60">
                 Special Discount on Memberships

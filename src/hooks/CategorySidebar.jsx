@@ -11,9 +11,9 @@ const CATEGORY_META = {
   Fiction: { dot: "bg-blue-400" },
   Fantasy: { dot: "bg-purple-400" },
   Mystery: { dot: "bg-rose-400" },
-  Tech:    { dot: "bg-cyan-400" },
+  Tech: { dot: "bg-cyan-400" },
   Science: { dot: "bg-green-400" },
-  Story:   { dot: "bg-orange-400" },
+  Story: { dot: "bg-orange-400" },
 };
 const defaultMeta = { dot: "bg-[#8B8B8B]" };
 
@@ -45,11 +45,10 @@ const CategoryList = ({ categories, selectedCategory, onSelect }) => (
     <li>
       <button
         onClick={() => onSelect(null)}
-        className={`flex items-center gap-3 w-full text-left px-3 py-2.5 rounded-sm text-sm font-medium transition-colors ${
-          !selectedCategory
+        className={`flex items-center gap-3 w-full text-left px-3 py-2.5 rounded-sm text-sm font-medium transition-colors ${!selectedCategory
             ? "bg-[#1A1A1B] text-white"
             : "text-[#1A1A1B] hover:bg-[#F9F8F6]"
-        }`}
+          }`}
       >
         <BiBook className="text-base opacity-70 flex-shrink-0" />
         All Books
@@ -62,16 +61,14 @@ const CategoryList = ({ categories, selectedCategory, onSelect }) => (
         <li key={cat}>
           <button
             onClick={() => onSelect(cat)}
-            className={`flex items-center gap-3 w-full text-left px-3 py-2.5 rounded-sm text-sm font-medium transition-colors ${
-              isActive
+            className={`flex items-center gap-3 w-full text-left px-3 py-2.5 rounded-sm text-sm font-medium transition-colors ${isActive
                 ? "bg-[#1A1A1B] text-white"
                 : "text-[#1A1A1B] hover:bg-[#F9F8F6]"
-            }`}
+              }`}
           >
             <span
-              className={`inline-block w-2 h-2 rounded-full flex-shrink-0 ${
-                isActive ? "bg-white" : meta.dot
-              }`}
+              className={`inline-block w-2 h-2 rounded-full flex-shrink-0 ${isActive ? "bg-white" : meta.dot
+                }`}
             />
             {cat}
             {isActive && (
@@ -118,9 +115,8 @@ const CategorySidebar = ({ categories, selectedCategory, isMobile = false }) => 
 
         {/* Right-side slide panel */}
         <div
-          className={`fixed top-0 right-0 h-full w-72 bg-white z-50 shadow-2xl flex flex-col transition-transform duration-300 ease-in-out ${
-            isOpen ? "translate-x-0" : "translate-x-full"
-          }`}
+          className={`fixed top-0 right-0 h-full w-72 bg-white z-50 shadow-2xl flex flex-col transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "translate-x-full"
+            }`}
           style={{ fontFamily: "'Playfair Display', serif" }}
         >
           {/* Panel Header */}
@@ -175,9 +171,8 @@ const CategorySidebar = ({ categories, selectedCategory, isMobile = false }) => 
   return (
     <aside className="w-56 flex-shrink-0">
       <div
-        className={`bg-white border border-[#E2E2E2] rounded-sm shadow-sm transition-opacity ${
-          isPending ? "opacity-60" : "opacity-100"
-        }`}
+        className={`bg-white border border-[#E2E2E2] rounded-sm shadow-sm transition-opacity ${isPending ? "opacity-60" : "opacity-100"
+          }`}
       >
         <div className="px-4 py-3 border-b border-[#E2E2E2]">
           <h2

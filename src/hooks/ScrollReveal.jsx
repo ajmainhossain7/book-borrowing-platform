@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 //   - delay: CSS delay string e.g. "0.2s"
 //   - threshold: 0–1, how much of element must be visible (default 0.15)
 //   - className: extra classes for the wrapper div
- 
+
 export default function ScrollReveal({
   children,
   animation = "animate__fadeInUp",
@@ -41,9 +41,8 @@ export default function ScrollReveal({
   return (
     <div
       ref={ref}
-      className={`${className} ${
-        visible ? `animate__animated ${animation}` : "opacity-0"
-      }`}
+      className={`${className} ${visible ? `animate__animated ${animation}` : "opacity-0"
+        }`}
       style={{
         animationDelay: delay,
         animationFillMode: "both",

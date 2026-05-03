@@ -13,7 +13,7 @@ export default function Home() {
       <TopRated></TopRated>
       <OffersSection></OffersSection>
       <FeaturedAuthors></FeaturedAuthors>
-      
+
     </div>
   );
 }

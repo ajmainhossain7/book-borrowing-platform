@@ -96,11 +96,10 @@ const Stars = ({ rating }) => (
     {[1, 2, 3, 4, 5].map((s) => (
       <FiStar
         key={s}
-        className={`text-[10px] ${
-          s <= Math.round(rating)
-            ? "fill-amber-400 text-amber-400"
-            : "text-gray-200 fill-gray-200"
-        }`}
+        className={`text-[10px] ${s <= Math.round(rating)
+          ? "fill-amber-400 text-amber-400"
+          : "text-gray-200 fill-gray-200"
+          }`}
       />
     ))}
     <span className="text-[10px] text-gray-400 ml-1">{rating}</span>
