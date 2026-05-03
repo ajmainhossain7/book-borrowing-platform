@@ -3,10 +3,10 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import {
   FiStar, FiArrowLeft,
-  FiPackage, FiShoppingCart, FiChevronRight
+  FiPackage, FiChevronRight
 } from "react-icons/fi";
 import ProtectedRoute from "@/hooks/ProtectedRoute";
-
+import BorrowButton from "@/hooks/BorrowButton";
 
 // ─── Data fetch ───────────────────────────────────────────────────────────────
 async function getBooks() {
@@ -23,10 +23,11 @@ const Stars = ({ rating, size = "sm" }) => (
     {[1, 2, 3, 4, 5].map((s) => (
       <FiStar
         key={s}
-        className={`${size === "sm" ? "text-xs" : "text-sm"} ${s <= Math.round(rating)
+        className={`${size === "sm" ? "text-xs" : "text-sm"} ${
+          s <= Math.round(rating)
             ? "fill-amber-400 text-amber-400"
             : "fill-gray-200 text-gray-200"
-          }`}
+        }`}
       />
     ))}
   </div>
@@ -48,12 +49,16 @@ const RelatedCard = ({ book }) => (
       />
     </div>
     <div className="flex flex-col justify-center gap-0.5 min-w-0">
-      <p className="text-[9px] tracking-widest uppercase text-[#8B8B8B]"
-        style={{ fontFamily: "'Playfair Display', serif" }}>
+      <p
+        className="text-[9px] tracking-widest uppercase text-[#8B8B8B]"
+        style={{ fontFamily: "'Playfair Display', serif" }}
+      >
         {book.category}
       </p>
-      <h4 className="text-xs font-bold text-[#1A1A1B] line-clamp-2 leading-snug"
-        style={{ fontFamily: "'Playfair Display', serif" }}>
+      <h4
+        className="text-xs font-bold text-[#1A1A1B] line-clamp-2 leading-snug"
+        style={{ fontFamily: "'Playfair Display', serif" }}
+      >
         {book.title}
       </h4>
       <p className="text-[10px] text-[#8B8B8B]">{book.author}</p>
@@ -98,7 +103,6 @@ const BookDetailsPage = async ({ params }) => {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-
           <Link
             href="/all-books"
             className="inline-flex items-center gap-1.5 text-xs text-[#8B8B8B] hover:text-[#1A1A1B] transition-colors mb-8"
@@ -126,17 +130,20 @@ const BookDetailsPage = async ({ params }) => {
                 </span>
               </div>
 
-              <div className={`w-56 sm:w-64 lg:w-full max-w-[260px] flex items-center gap-3 px-4 py-3 border ${isOutOfStock
+              <div className={`w-56 sm:w-64 lg:w-full max-w-[260px] flex items-center gap-3 px-4 py-3 border ${
+                isOutOfStock
                   ? "bg-red-50 border-red-200"
                   : isLowStock
                     ? "bg-orange-50 border-orange-200"
                     : "bg-emerald-50 border-emerald-200"
-                }`}>
-                <FiPackage className={`text-sm flex-shrink-0 ${isOutOfStock ? "text-red-400" : isLowStock ? "text-orange-400" : "text-emerald-500"
-                  }`} />
+              }`}>
+                <FiPackage className={`text-sm flex-shrink-0 ${
+                  isOutOfStock ? "text-red-400" : isLowStock ? "text-orange-400" : "text-emerald-500"
+                }`} />
                 <div>
-                  <p className={`text-xs font-bold ${isOutOfStock ? "text-red-600" : isLowStock ? "text-orange-600" : "text-emerald-600"
-                    }`}>
+                  <p className={`text-xs font-bold ${
+                    isOutOfStock ? "text-red-600" : isLowStock ? "text-orange-600" : "text-emerald-600"
+                  }`}>
                     {isOutOfStock ? "Out of Stock" : isLowStock ? `Only ${book.available_quantity} left!` : "In Stock"}
                   </p>
                   {!isOutOfStock && (
@@ -232,16 +239,11 @@ const BookDetailsPage = async ({ params }) => {
                 </p>
 
                 <div className="flex flex-col gap-2.5">
-                  <button
-                    disabled={isOutOfStock}
-                    className={`w-full flex items-center justify-center gap-2 py-3 text-xs font-bold tracking-[0.12em] uppercase transition-all duration-200 ${isOutOfStock
-                        ? "bg-[#E2E2E2] text-[#8B8B8B] cursor-not-allowed"
-                        : "bg-[#1A1A1B] text-white hover:bg-[#121217] active:scale-[0.98]"
-                      }`}
-                  >
-                    <FiShoppingCart className="text-sm" />
-                    {isOutOfStock ? "Unavailable" : "Borrow Now"}
-                  </button>
+                  {/* ← BorrowButton — auth check + toast সব এর ভেতরেই */}
+                  <BorrowButton
+                    isOutOfStock={isOutOfStock}
+                    bookTitle={book.title}
+                  />
 
                   <Link
                     href="/all-books"
