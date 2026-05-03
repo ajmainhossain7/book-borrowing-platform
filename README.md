@@ -2,27 +2,21 @@
 
 <br/>
 
-```
-█▀▀ █░█ █▀█ █░█ █▄▄ █▀█ █▀█ █▄▀ █▀
-█▄▄ █▄█ █▀▄ ▀▄▀ █▄█ █▄█ █▄█ █░█ ▄█
-```
+<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3MjAgMTA0IiB3aWR0aD0iNzIwIiBoZWlnaHQ9IjEwNCI+CiAgPHJlY3Qgd2lkdGg9IjcyMCIgaGVpZ2h0PSIxMDQiIHJ4PSIxMCIgZmlsbD0iIzE2MWIyMiIvPgogIDx0ZXh0IHg9IjM2MCIgeT0iNDIiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTgiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZTZlZGYzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB4bWw6c3BhY2U9InByZXNlcnZlIj7ilojiloDiloAg4paI4paR4paIIOKWiOKWgOKWiCDilojilpHilogg4paI4paE4paEIOKWiOKWgOKWiCDilojiloDilogg4paI4paE4paAIOKWiOKWgDwvdGV4dD4KICA8dGV4dCB4PSIzNjAiIHk9IjcwIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2U2ZWRmMyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+4paI4paE4paEIOKWiOKWhOKWiCDilojiloDiloQg4paA4paE4paAIOKWiOKWhOKWiCDilojiloTilogg4paI4paE4paIIOKWiOKWkeKWiCDiloTilog8L3RleHQ+Cjwvc3ZnPg==" alt="CURVBOOKS" width="720"/>
+
+<br/>
 
 ### ✦ &nbsp; *Find Your Next Read.* &nbsp; ✦
 
 <br/>
 
 [![Live Demo](https://img.shields.io/badge/🌐%20Live%20Demo-Visit%20Site-000000?style=for-the-badge)](https://book-borrowing-platform.vercel.app)
-&nbsp;
 [![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org)
-&nbsp;
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://typescriptlang.org)
 
 [![Better Auth](https://img.shields.io/badge/Better--Auth-6C47FF?style=for-the-badge&logo=auth0&logoColor=white)](https://better-auth.com)
-&nbsp;
 [![HeroUI](https://img.shields.io/badge/HeroUI-0070F3?style=for-the-badge&logo=react&logoColor=white)](https://heroui.com)
-&nbsp;
 [![DaisyUI](https://img.shields.io/badge/DaisyUI-FF69B4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://daisyui.com)
-&nbsp;
 [![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com)
 
 <br/>
@@ -35,9 +29,8 @@
 
 <br/>
 
-```
-        📚  3,200+ Books        👥  12,000+ Readers        ⭐  4.8 Avg Rating
-```
+| 📚 3,200+ Books | 👥 12,000+ Readers | ⭐ 4.8 Avg Rating |
+|:-:|:-:|:-:|
 
 <br/>
 
@@ -202,8 +195,8 @@ CurvBooks is styled through a two-layer design system that prioritises both flex
 
 <div align="center">
 
-| Channel | &nbsp; |
-|:--------|:-------|
+| Channel | Link |
+|:--------|:-----|
 | 🌐 &nbsp; **Website** | [book-borrowing-platform.vercel.app](https://book-borrowing-platform.vercel.app) |
 | 📧 &nbsp; **Email** | [Contact Us](https://book-borrowing-platform.vercel.app/contact) |
 | 💬 &nbsp; **Help Center** | [Help & Support](https://book-borrowing-platform.vercel.app/help) |
@@ -217,15 +210,11 @@ CurvBooks is styled through a two-layer design system that prioritises both flex
 
 ---
 
-<br/>
-
 <div align="center">
 
-```
-  ════════════════════════════════════════════════════════
-          © 2026  C U R V B O O K S  — All Rights Reserved
-  ════════════════════════════════════════════════════════
-```
+<br/>
+
+*© 2026 &nbsp; **CURVBOOKS** &nbsp; — All Rights Reserved*
 
 [Privacy Policy](https://book-borrowing-platform.vercel.app/privacy)
 
