@@ -33,7 +33,7 @@ export default function Navbar() {
 
   const handleSignOut = async () => {
     await authClient.signOut({
-      fetchOptions: { onSuccess: () => window.location.replace("/") },
+      fetchOptions: { onSuccess: () => window.location.replace("/signin") },
     });
   };
 
