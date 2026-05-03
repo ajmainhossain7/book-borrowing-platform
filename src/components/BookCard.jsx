@@ -93,7 +93,7 @@ const BookCard = ({ book }) => {
           href={`/all-books/${id}`}
           className="mt-1 flex items-center justify-center gap-1.5 border border-gray-900 text-gray-900 text-xs font-semibold py-1.5 hover:bg-gray-900 hover:text-white transition-colors duration-200"
         >
-          View Details
+          Details
         </Link>
       </div>
     </div>

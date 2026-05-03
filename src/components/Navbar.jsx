@@ -10,9 +10,9 @@ import { authClient } from "@/lib/auth-client";
 const NAV_LINKS = [
   { label: "Home",      href: "/" },
   { label: "All Books", href: "/all-books" },
-  { label: "Wishlist",  href: "/wishlist" },
-  { label: "Blog",      href: "/blog" },
-  { label: "About Us",  href: "/about" },
+  // { label: "Wishlist",  href: "/wishlist" },
+  // { label: "Blog",      href: "/blog" },
+  // { label: "About Us",  href: "/about" },
   { label: "My Profile", href: "/profile" },
 ];
 
@@ -96,7 +96,7 @@ export default function Navbar() {
           {/* ── Right: Search + Auth ── */}
           <div className="navbar-end gap-3">
             {/* Search */}
-            <div className="hidden md:flex items-center border-b border-base-300 hover:border-base-content focus-within:border-base-content transition-colors pb-0.5 gap-1.5">
+            {/* <div className="hidden md:flex items-center border-b border-base-300 hover:border-base-content focus-within:border-base-content transition-colors pb-0.5 gap-1.5">
               <FiSearch className="text-base-content/40 text-sm shrink-0" />
               <input
                 value={searchQuery}
@@ -105,7 +105,7 @@ export default function Navbar() {
                 placeholder="Search book..."
                 className="bg-transparent outline-none text-sm w-36 lg:w-48 placeholder:text-base-content/40"
               />
-            </div>
+            </div> */}
 
             {/* ── Auth ── */}
             {isPending ? (
