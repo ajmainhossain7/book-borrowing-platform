@@ -2,7 +2,7 @@
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 
 export default function UpdateProfilePage() {
   const router = useRouter();

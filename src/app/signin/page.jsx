@@ -3,8 +3,8 @@ import { authClient } from "@/lib/auth-client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import toast, { Toaster } from "react-hot-toast";
 import { GrGoogle } from "react-icons/gr";
+import toast from "react-hot-toast";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -69,7 +69,6 @@ export default function SignInPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#F9F8F6]">
-      <Toaster position="top-center" />
 
       <div className="w-full max-w-md border rounded-xl p-8 bg-white shadow-sm">
         <h1 className="text-2xl font-bold text-center mb-6">Sign In</h1>
