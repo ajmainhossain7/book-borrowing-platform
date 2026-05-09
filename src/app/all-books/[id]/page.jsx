@@ -83,6 +83,9 @@ const BookDetailsPage = async ({ params }) => {
   const isOutOfStock = book.available_quantity === 0;
   const isLowStock = book.available_quantity > 0 && book.available_quantity <= 8;
 
+  const ratingLabel =
+    book.rating >= 4.8 ? "Outstanding" : book.rating >= 4.5 ? "Excellent" : "Very Good";
+
   return (
     <ProtectedRoute>
       <div
@@ -130,6 +133,7 @@ const BookDetailsPage = async ({ params }) => {
                 </span>
               </div>
 
+              {/* Stock badge */}
               <div className={`w-56 sm:w-64 lg:w-full max-w-[260px] flex items-center gap-3 px-4 py-3 border ${
                 isOutOfStock
                   ? "bg-red-50 border-red-200"
@@ -156,6 +160,25 @@ const BookDetailsPage = async ({ params }) => {
                   <span className="ml-auto w-2 h-2 bg-orange-400 rounded-full animate-pulse flex-shrink-0" />
                 )}
               </div>
+
+              {/* ── NEW: Quick meta pills ── */}
+              <div className="w-56 sm:w-64 lg:w-full max-w-[260px] flex flex-wrap gap-2">
+                {book.pages && (
+                  <span className="text-[10px] tracking-widest uppercase text-[#8B8B8B] border border-[#E2E2E2] px-2.5 py-1 bg-white">
+                    {book.pages} pages
+                  </span>
+                )}
+                {book.language && (
+                  <span className="text-[10px] tracking-widest uppercase text-[#8B8B8B] border border-[#E2E2E2] px-2.5 py-1 bg-white">
+                    {book.language}
+                  </span>
+                )}
+                {book.published_year && (
+                  <span className="text-[10px] tracking-widest uppercase text-[#8B8B8B] border border-[#E2E2E2] px-2.5 py-1 bg-white">
+                    {book.published_year}
+                  </span>
+                )}
+              </div>
             </div>
 
             {/* ── CENTER: Book Info ── */}
@@ -180,9 +203,7 @@ const BookDetailsPage = async ({ params }) => {
                 <Stars rating={book.rating} size="sm" />
                 <span className="text-sm font-semibold text-[#1A1A1B]">{book.rating}</span>
                 <span className="text-[#E2E2E2]">|</span>
-                <span className="text-xs text-[#8B8B8B]">
-                  {book.rating >= 4.8 ? "Outstanding" : book.rating >= 4.5 ? "Excellent" : "Very Good"}
-                </span>
+                <span className="text-xs text-[#8B8B8B]">{ratingLabel}</span>
               </div>
 
               <div>
@@ -194,12 +215,17 @@ const BookDetailsPage = async ({ params }) => {
                 </p>
               </div>
 
+              {/* ── UPDATED: Details table with new fields ── */}
               <div className="bg-white border border-[#E2E2E2] divide-y divide-[#E2E2E2] pt-2">
                 {[
-                  { label: "Category", value: book.category },
-                  { label: "Author", value: book.author },
+                  { label: "Category",  value: book.category },
+                  { label: "Author",    value: book.author },
+                  { label: "Pages",     value: book.pages ? `${book.pages} pages` : "—" },
+                  { label: "Language",  value: book.language ?? "—" },
+                  { label: "Published", value: book.published_year ?? "—" },
+                  { label: "ISBN",      value: book.isbn ?? "—" },
                   { label: "Available", value: `${book.available_quantity} copies` },
-                  { label: "Rating", value: `${book.rating} / 5.0` },
+                  { label: "Rating",    value: `${book.rating} / 5.0` },
                 ].map((item) => (
                   <div key={item.label} className="flex items-center justify-between px-4 py-3">
                     <span className="text-[11px] tracking-widest uppercase text-[#8B8B8B]">
@@ -212,14 +238,17 @@ const BookDetailsPage = async ({ params }) => {
                 ))}
               </div>
 
-              <blockquote className="border-l-2 border-[#E2E2E2] pl-5 py-1 mt-2">
-                <p className="text-sm italic text-[#8B8B8B] leading-relaxed">
-                  "A reader lives a thousand lives before he dies."
-                </p>
-                <cite className="text-[10px] text-[#8B8B8B] not-italic tracking-widest uppercase mt-2 block">
-                  — George R.R. Martin
-                </cite>
-              </blockquote>
+              {/* ── UPDATED: Dynamic quote from data ── */}
+              {book.quote && (
+                <blockquote className="border-l-2 border-[#E2E2E2] pl-5 py-1 mt-2">
+                  <p className="text-sm italic text-[#8B8B8B] leading-relaxed">
+                    "{book.quote}"
+                  </p>
+                  <cite className="text-[10px] text-[#8B8B8B] not-italic tracking-widest uppercase mt-2 block">
+                    — {book.quote_author ?? book.author}
+                  </cite>
+                </blockquote>
+              )}
             </div>
 
             {/* ── RIGHT: Action + Related ── */}
@@ -228,23 +257,23 @@ const BookDetailsPage = async ({ params }) => {
                 <p className="text-[10px] tracking-[0.25em] uppercase text-[#8B8B8B] mb-1">
                   Borrow this book
                 </p>
+
+                {/* ── UPDATED: Dynamic price ── */}
                 <p
                   className="text-3xl font-black text-[#1A1A1B] mb-1"
                   style={{ fontFamily: "'Playfair Display', serif" }}
                 >
-                  Free
+                  {book.price ?? "Free"}
                 </p>
                 <p className="text-[10px] text-[#8B8B8B] mb-5">
                   For registered members
                 </p>
 
                 <div className="flex flex-col gap-2.5">
-                  {/* ← BorrowButton — auth check + toast সব এর ভেতরেই */}
                   <BorrowButton
                     isOutOfStock={isOutOfStock}
                     bookTitle={book.title}
                   />
-
                   <Link
                     href="/all-books"
                     className="w-full flex items-center justify-center gap-2 py-3 text-xs font-bold tracking-[0.12em] uppercase border border-[#E2E2E2] text-[#8B8B8B] hover:border-[#1A1A1B] hover:text-[#1A1A1B] transition-all duration-200"
@@ -253,8 +282,13 @@ const BookDetailsPage = async ({ params }) => {
                   </Link>
                 </div>
 
+                {/* ── UPDATED: Dynamic borrow_duration ── */}
                 <div className="mt-5 pt-4 border-t border-[#E2E2E2] flex flex-col gap-2">
-                  {["Free 14-day borrow", "Instant availability", "No late fees"].map((perk) => (
+                  {[
+                    `Free ${book.borrow_duration ?? 14}-day borrow`,
+                    "Instant availability",
+                    "No late fees",
+                  ].map((perk) => (
                     <div key={perk} className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full flex-shrink-0" />
                       <p className="text-[11px] text-[#8B8B8B]">{perk}</p>
